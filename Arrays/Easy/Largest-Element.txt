@@ -1,0 +1,42 @@
+Largest Element in the Array:
+
+Question: You have a array of elements, you need to find the largest element from the array.
+Ex: Arr = [1,2,5,3,4]
+    Sol = 5
+
+Brute Force:
+============
+
+Sort the array and return the element at length - 1 index.
+
+class Solution {
+    public static int largest(int[] arr) {
+        // code here
+        Arrays.sort(arr);
+        return arr[arr.length - 1];
+    }
+}
+
+TC : O(N log N), SC : O(1)
+
+Optimal:
+=======
+
+Take largest element as first element of the array, and traverse throgh the array and compare with max element,
+Change the max accordingly.
+
+class Solution {
+    public static int largest(int[] arr) {
+        // code here
+        int  max = Integer.MIN_VALUE;
+        for(int i = 0; i < arr.length; i++){
+            if(arr[i] > max){
+                max = arr[i];
+            }
+        }
+        return max;
+    }
+}
+
+TC: O(N) / Theta(N)
+SC : O(1)
