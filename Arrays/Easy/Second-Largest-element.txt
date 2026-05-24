@@ -1,0 +1,97 @@
+Second-Largest Element in the Array
+
+Given an array of integers nums, return the second-largest element in the array. If the second-largest element does not exist, return -1.
+
+
+Example 1
+
+Input: nums = [8, 8, 7, 6, 5]
+
+Output: 7
+
+Explanation:
+
+The largest value in nums is 8, the second largest is 7
+
+
+Brute Force:
+------------
+------------
+Sort the array and parse through the Array from n-2 and check whether it's not equal to the largest.
+
+class Solution {
+    public int getSecondLargest(int[] nums) {
+        // code here
+      int sec_largest = -1;
+      Arrays.sort(nums);
+      int max = nums[nums.length - 1];
+      for(int i = nums.length - 2; i >= 0; i--){
+        if(nums[i] != max){
+            return nums[i];
+        }
+      }
+      return sec_largest;
+    }
+}
+
+
+Best Case : O(n log n), O(1) - {For sorting n logn}
+Worst Case : O(n log n + n) , O(1) - {If there is no secon largest element and if the largest element is n-1 times in the array,
+                                       needs to traverse over the entire array so extra n needed}.
+
+Better Approach:
+---------------
+
+Find the largest element in the array, and find the second largest element by comparing with the largest element.
+
+class Solution {
+    public int getSecondLargest(int[] arr) {
+        // code here
+        int largest = Integer.MIN_VALUE;
+        for(int i = 0; i < arr.length;i++){
+            if (arr[i] > largest){
+                largest = arr[i];
+            }
+        }
+        int second_largest = -1;
+        for(int i = 0; i < arr.length; i++){
+            if(arr[i] > second_largest && arr[i] < largest){
+                second_largest = arr[i];
+            }
+        }
+        return second_largest;
+    }
+}
+
+Complexity : O(n+n) - one to find largest and other to find second_largest
+
+
+
+Optimal Solution:
+----------------
+
+take largest_element as arr[0] and second_largest as -1
+now go over the array , if you find some element which is greater than largest_element then 
+put second_largest = largest_element
+and largest_element = arr[i]
+
+if you find arr[i] not greater than largest_element then only check if it is greater than second_largest if so assign current value to second_largest
+
+class Solution {
+    public int getSecondLargest(int[] arr) {
+        // code here
+        int largest = arr[0], second = -1;
+        for(int i = 0; i < arr.length; i++){
+            if(arr[i] > largest){
+                second = largest;
+                largest = arr[i];
+            }
+            else if(arr[i] < largest && arr[i] > second){
+                second = arr[i];
+            }
+        }
+        return second;
+    }
+}
+
+Time complexity : O(n)
