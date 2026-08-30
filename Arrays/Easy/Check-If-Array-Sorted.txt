@@ -1,0 +1,66 @@
+Problem-Link : https://leetcode.com/problems/check-if-array-is-sorted-and-rotated/description/
+
+Brute Force Solution:
+Get the value of the array that how many times it got rotated.
+Build new array from it:
+From rotated-last of array will comes as first elements of original array
+from 0-rotated comes next
+Now check whether the array is sorted or not.
+
+Time Complexity : O(n (Get rotated count) + n(Unrotate the original array) + n(Check whether the new array is sorted or not)) 
+Space Complexity: O(n)
+class Solution {
+    public boolean is_Sorted(int[] nums){
+        for(int i = 0; i < nums.length-1; i++){
+            if(nums[i] > nums[i+1]){
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean check(int[] nums) {
+        int rotated = 0;
+        int[] remove_rotation = new int[nums.length];
+        for(int i = 0; i < nums.length-1; i++){
+            if(nums[i] > nums[i+1]){
+                rotated = i + 1;
+                break;
+            }
+        }
+        if(rotated != 0){
+            int index = 0;
+            for(int i = rotated; i < nums.length; i++){
+                remove_rotation[index++] = nums[i]; 
+            }
+            for(int i = 0; i < rotated; i++){
+                remove_rotation[index++] = nums[i];
+            }
+        }
+        return is_Sorted(remove_rotation);
+    }
+}
+
+Optimal Approach:
+Check the number of breaks(which violates the ascending order rule) the given array had
+if the cnt is >1 then it is not a sorted array.
+Initially checking the 0th and n-1 element, to check the break count as a cyclic array.
+Time Complexity: O(n)
+Space Complexity: O(1)
+
+class Solution {
+    public boolean check(int[] nums) {
+        int cnt = 0;
+        if(nums[0] < nums[nums.length-1]){
+            cnt++;
+        }
+        for(int i = 0; i < nums.length - 1; i++){
+            if(nums[i] > nums[i + 1]){
+                cnt++;
+            }
+        }
+        if(cnt > 1){
+            return false;
+        }
+        return true;
+    }
+}
