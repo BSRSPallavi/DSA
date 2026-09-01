@@ -1,4 +1,27 @@
 Problem Link : https://leetcode.com/problems/remove-duplicates-from-sorted-array/description/
+Brute Force:
+Take a set and push all the array values to the set
+As set will remove all the duplicates by default, set will consist of unique values.
+use foreach loop and push all set items to array again.
+use TreeSet as it is ordered set.
+
+Time Complexity: O(N(To traverse array)+N(To traverse set - worst case no dups))
+Space complexity:O(N)
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        TreeSet<Integer> ts = new TreeSet<>();
+        for(int i = 0; i < nums.length; i++){
+            ts.add(nums[i]);
+        }
+        int index = 0;
+        for(Integer number:ts){
+            nums[index++] = number;
+        }
+        return index;
+    }
+}
+
 
 Two pointer approach:
 take i, j .
@@ -6,7 +29,7 @@ initialize i = 0, j = 1.. compare the elements in those index
 if equal j++
 if not increment i and initialize j value to ith place.
 
-Time complexity : O(N)
+Time complexity : O(N), SpaceComplexity : O(1)
 
 class Solution {
     public int removeDuplicates(int[] nums) {
