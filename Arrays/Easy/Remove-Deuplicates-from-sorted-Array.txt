@@ -1,0 +1,22 @@
+Problem Link : https://leetcode.com/problems/remove-duplicates-from-sorted-array/description/
+
+Two pointer approach:
+take i, j .
+initialize i = 0, j = 1.. compare the elements in those index
+if equal j++
+if not increment i and initialize j value to ith place.
+
+Time complexity : O(N)
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int i = 0, j = 1;
+        while(j < nums.length){
+            if(nums[i] != nums[j]){
+                nums[++i] = nums[j];
+            }
+            j++;
+        }
+        return i+1;
+    }
+}
