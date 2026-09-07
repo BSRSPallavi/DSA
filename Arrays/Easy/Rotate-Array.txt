@@ -23,3 +23,36 @@ class Solution {
         }
     }
 }
+
+Better Approach:
+================
+
+Copy last k elements to temp array of size k.
+now after rotating each ar[i+k] is replaced with ar[i] after rotating.
+array contains right elements except first k elements, now copy elements from temp to first k elements.
+Time Complexity : O(k - to copy k elements) + O(N-k - to place the elements in right place) + O(k - to copy temp to original array)
+                  O(k + n - k +k) = O(n + k) = O(N)
+SpaceComplexity : O(N) - storing temp elements what if given k is n-1
+
+class Solution {
+    public void rotate(int[] nums, int k) {
+        k = (k)%nums.length;
+        if(nums.length - k == 0) return;
+        int[] temp = new int[k];
+        int idx = 0;
+        for(int i = nums.length - k; i < nums.length;i++){
+            temp[idx++] = nums[i];
+        }
+        for(int i = nums.length - k - 1; i >=0; i--){
+            nums[(i+k)] = nums[i];
+        }
+        for(int i = 0; i < temp.length; i++){
+            nums[i] = temp[i];
+        }
+    }
+}
+
+Optimal Approach:
+==================
+
+
