@@ -1,0 +1,39 @@
+Problem Link : https://leetcode.com/problems/move-zeroes/
+
+BruteForce:
+---------
+Suppose, there are N-X zeros and X non-zero elements in the array. We will first copy those X non-zero elements from the original array to a temporary array.
+Then, we will copy the elements from the temporary array one by one and fill the first X places of the original array.
+The last N-X places of the original array will be then filled with zero. Now, our task is completed.
+
+Time Complexity : O(n+n) = O(2N)
+Space Complexity : O(N)
+
+
+Optimal:
+--------
+Take two pointers - i, j
+initialize i, j to 0
+traverse through the array with j and check the elements at nums[j]
+if 0 j++;
+else place the number at ith index and move i, j
+place 0 s from i to n places.
+
+Time Complexity : O(N)
+SpaceComplexity : O(1)
+
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int i = 0, j= 0;
+        while(j < nums.length){
+            if(nums[j] != 0){
+                nums[i] = nums[j];
+                i++;
+            }
+            j++;            
+        }
+        while(i<nums.length){
+            nums[i++] = 0;
+        }
+    }
+}
