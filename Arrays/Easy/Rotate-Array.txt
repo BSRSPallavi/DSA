@@ -3,7 +3,7 @@ Problem Link : https://leetcode.com/problems/rotate-array/
 BruteForce 
 ===========
 
-Rotate k times the array to the right
+Rotate k%nums.length times the array to the right
 Assign the last array element to a variable
 and traverse the array backwords and move element ahead
 and assign the the last array element to 0th index.
@@ -13,6 +13,7 @@ Time Complexity : O(N(k - worst case = N) * N(traverse the array)), SpaceComplex
 class Solution {
     public void rotate(int[] nums, int k) {
         int lastele;
+        k = k% nums.length;
         while(k>0){
             lastele = nums[nums.length - 1];
             for(int i = nums.length - 1; i > 0; i--){
@@ -54,5 +55,29 @@ class Solution {
 
 Optimal Approach:
 ==================
+Last K elements will come to first
+reverse last k elements 
+reverse 0th to n-k-1 elements
+reverse whole array.
 
+Time Complexity : O(n-k-1+k+n) = O(2n-1) = O(2N)
+SpaceComplexity : O(1)
 
+class Solution {
+    public void reverse(int[] nums, int start, int end){
+        int temp;
+        while(start<end){
+            temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
+    }
+    public void rotate(int[] nums, int k) {
+        k = k%nums.length;
+        reverse(nums,0, nums.length - k - 1);
+        reverse(nums, nums.length - k, nums.length - 1);
+        reverse(nums, 0, nums.length-1);
+    }
+}
